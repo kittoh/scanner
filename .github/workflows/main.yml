@@ -54,3 +54,5 @@ jobs:
         uses: zaproxy/action-baseline@v0.4.0
         with:
           target: http://testasp.vulnweb.com/
+
+[![CI](https://github.com/kittoh/scanner/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/kittoh/scanner/actions/workflows/main.yml)
