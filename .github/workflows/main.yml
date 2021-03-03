@@ -53,4 +53,4 @@ jobs:
           # uses: zaproxy/action-baseline@acd8e997263688cb49cb5ff8247a4b2758c548ab
         uses: zaproxy/action-baseline@v0.4.0
         with:
-          target: http://testhtml5.vulnweb.com/
+          target: https://www.brusselsairlines.com/com/
