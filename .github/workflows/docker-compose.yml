@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    name: "RUN YEETEST"
+    name: "RUN YEEEEETEST"
     runs-on: ubuntu-latest
 
     steps:
