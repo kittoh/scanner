@@ -19,7 +19,7 @@ headers = {
 email = "kitto.hernandes@gmail.com"
 api_key = input("API key: ")
 
-# auth = HTTPBasicAuth("kitto.hernandes@gmail.com", "bSmfRUKJXt2wkd6S5VgaCB66")
+# auth = HTTPBasicAuth("kitto.hernandes@gmail.com", api_key)
 
 # open parsed report
 with open('test_report_parsed.json') as j:
