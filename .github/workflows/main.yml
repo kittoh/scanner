@@ -22,15 +22,14 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  printInputs:
-    runs-on: ubuntu-latest
-    steps:
-    - run: |
-        echo "Log level: ${{ github.event.inputs.logLevel }}"
-        echo "Tags: ${{ github.event.inputs.tags }}"
+  # printInputs:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - run: |
+  #       echo "Log level: ${{ github.event.inputs.logLevel }}"
+  #       echo "Tags: ${{ github.event.inputs.tags }}"
   # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  build: 
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -38,19 +37,27 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # # Runs a single command using the runners shell
+      # - name: Run a one-line script
+      #   run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      # # Runs a set of commands using the runners shell
+      # - name: Run a multi-line script
+      #   run: |
+      #     echo Add other actions to build,
+      #     echo test, and deploy your project.
       
-      - name: OWASP ZAP Baseline Scan
-          # You may pin to the exact commit or the version.
-          # uses: zaproxy/action-baseline@acd8e997263688cb49cb5ff8247a4b2758c548ab
-        uses: zaproxy/action-baseline@v0.4.0
-        with:
-          target: https://www.brusselsairlines.com/com/
+      # - name: OWASP ZAP Baseline Scan
+      #     # You may pin to the exact commit or the version.
+      #     # uses: zaproxy/action-baseline@acd8e997263688cb49cb5ff8247a4b2758c548ab
+      #   uses: zaproxy/action-baseline@v0.4.0
+      #   with:
+      #     target: http://testhtml5.vulnweb.com/
+
+      - name: Python Parsing
+          
+        run: python JSON_parser.py
+
+      - name: Bash
+
+        run: ./mybash.sh
