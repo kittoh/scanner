@@ -61,14 +61,7 @@ def jira_login(server):
         email,
         api_key
     )
-  
     return auth_jira
-
-
-
-
-
-
 
 # your jira domain
 server = "https://kittoh.atlassian.net/rest/api/3/issue"

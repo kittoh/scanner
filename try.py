@@ -2,8 +2,8 @@ from jira import JIRA
 import click
 import getpass
 
-ISSUE_SUMMARY = "TEST SUMMARY"
-ISSUE_DESCRIPTION = """TEST DESCRIPTION
+ISSUE_SUMMARY = "TEST SUMMARY from kittoh"
+ISSUE_DESCRIPTION = """TEST
 1.
 2.
 3.
@@ -11,7 +11,7 @@ ISSUE_DESCRIPTION = """TEST DESCRIPTION
 
 
 @click.command(
-    short_help='Open a JIRA ticket with your Cloudsplaining report findings.'
+    short_help='Open a JIRA ticket with your report findings.'
 )
 # By default, the client will connect to a JIRA instance started from the Atlassian Plugin SDK
 # (see https://developer.atlassian.com/display/DOCS/Installing+the+Atlassian+Plugin+SDK for details).
@@ -50,8 +50,13 @@ ISSUE_DESCRIPTION = """TEST DESCRIPTION
     type=str,
     help='The JIRA server.'
 )
-def open_jira_ticket(project, server):
-# def open_jira_ticket(project, auth_file, report_file, triage_file, data_file, server):
+
+@click.option(
+    '--attachment_path',
+    help='File path of the attachment.'
+)
+def open_jira_ticket(project, server, attachment_path):
+    # def open_jira_ticket(project, auth_file, report_file, triage_file, data_file, server):
     jira = jira_login(server)
     issue = jira.create_issue(
         project=project,
@@ -102,13 +107,12 @@ def add_attachment(jira, issue, attachment_path):
     :return:
     """
     # upload file from `/some/path/attachment.txt`
-    # attachment_path = 'S:\K\Haxx\codes\test_report_parsed.json'
-    jira.add_attachment(issue=issue, attachment=attachment_path)
+    jira.add_attachment(issue=issue, attachment='./test_report_parsed.json')
 
     # read and upload a file (note binary mode for opening, it's important):
     with open('test_report_parsed.json', 'rb') as f:
-        jira.add_attachment(issue=issue, attachment_path=f)
-    print(f"Uploaded: {attachment_path}")
+        jira.add_attachment(issue=issue, attachment=f)
+        print(f"Uploaded: {attachment_path}")
 
 
 def list_attachments(issue):
