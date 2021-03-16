@@ -2,16 +2,20 @@ from jira import JIRA
 import click
 import getpass
 
-ISSUE_SUMMARY = "TEST SUMMARY from kittoh"
-ISSUE_DESCRIPTION = """TEST
-1.
-2.
-3.
+ISSUE_SUMMARY = "TEST ISSUE SUMMARY from kittoh"
+ISSUE_DESCRIPTION = """As part of our security assessment, our team ran Cloudsplaining on your AWS account.
+Cloudsplaining maps out the IAM risk landscape in a report, identifies where resource ARN constraints are not used, and
+identifies other risks in IAM policies like Privilege Escalation, Data Exfiltration, and Resource Exposure.
+Remediating these issues, where applicable, will help to limit the blast radius in the case of compromised AWS credentials.
+We request that you review the HTML report and fill out the "Justification" field in the Triage worksheet.
+Based on the corresponding details in the HTML report, provide either:
+1. A justification on why the result is a False Positive, or
+2. Identify that it is a legitimate finding.
 """
 
 
 @click.command(
-    short_help='Open a JIRA ticket with your report findings.'
+    short_help='Open a JIRA ticket with your Cloudsplaining report findings.'
 )
 # By default, the client will connect to a JIRA instance started from the Atlassian Plugin SDK
 # (see https://developer.atlassian.com/display/DOCS/Installing+the+Atlassian+Plugin+SDK for details).
@@ -50,10 +54,10 @@ ISSUE_DESCRIPTION = """TEST
     type=str,
     help='The JIRA server.'
 )
-# @click.option(
-#     '--attachment',
-#     help='File path of the attachment.'
-# )
+@click.option(
+    '--attachment_path',
+    help = 'File path of the attachment'
+)
 
 def open_jira_ticket(project, server):
     # def open_jira_ticket(project, auth_file, report_file, triage_file, data_file, server):
@@ -66,8 +70,8 @@ def open_jira_ticket(project, server):
             'name': 'Bug'
         }
     )
-    # for attachment in attachment:
-    jira.add_attachment(issue, attachment)
+    # for file in [auth_file, report_file, triage_file, data_file]:
+    # jira.add_attachment(issue, attachment_path)
 
     print("Issue opened and attachments added. Metadata:")
     print(f"\tIssue ID: {issue.id}")
@@ -77,10 +81,11 @@ def open_jira_ticket(project, server):
 
 
 def jira_login(server):
-    # username = input("Enter your JIRA username")
-    # password = getpass.getpass(prompt='Enter your JIRA password.')
+    # username = 'kitto.hernandes@gmail.com'  # input("Enter your JIRA username")
+    # api_key = 'bSmfRUKJXt2wkd6S5VgaCB66'
+    
     import os
-    username = os.getenv("JIRA_EMAIL")
+    username = os.getenv("JIRA_EMAIl")
     api_key = os.getenv("JIRA_API_KEY")
     options = {
         "server": server,
@@ -97,7 +102,8 @@ def jira_login(server):
     )
     return auth_jira
 
-def add_attachment(jira, issue, attachment):
+
+def add_attachment(jira, issue, attachment_path):
     """
     Adds an attachment.
     :param jira: JIRA session
@@ -111,7 +117,7 @@ def add_attachment(jira, issue, attachment):
     # read and upload a file (note binary mode for opening, it's important):
     with open('test_report_parsed.json', 'rb') as f:
         jira.add_attachment(issue=issue, attachment=f)
-        print(f"Uploaded: {attachment}")
+    print(f"Uploaded: {attachment_path}")
 
 
 def list_attachments(issue):
