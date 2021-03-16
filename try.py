@@ -50,12 +50,12 @@ ISSUE_DESCRIPTION = """TEST
     type=str,
     help='The JIRA server.'
 )
-
 @click.option(
-    '--attachment_path',
+    '--attachment',
     help='File path of the attachment.'
 )
-def open_jira_ticket(project, server, attachment_path):
+
+def open_jira_ticket(project, server, attachment):
     # def open_jira_ticket(project, auth_file, report_file, triage_file, data_file, server):
     jira = jira_login(server)
     issue = jira.create_issue(
@@ -67,7 +67,7 @@ def open_jira_ticket(project, server, attachment_path):
         }
     )
     # for file in [auth_file, report_file, triage_file, data_file]:
-    add_attachment(jira, issue, attachment_path)
+    add_attachment(jira, issue, attachment)
 
     print("Issue opened and attachments added. Metadata:")
     print(f"\tIssue ID: {issue.id}")
@@ -97,8 +97,7 @@ def jira_login(server):
     )
     return auth_jira
 
-
-def add_attachment(jira, issue, attachment_path):
+def add_attachment(jira, issue, attachment):
     """
     Adds an attachment.
     :param jira: JIRA session
@@ -112,7 +111,7 @@ def add_attachment(jira, issue, attachment_path):
     # read and upload a file (note binary mode for opening, it's important):
     with open('test_report_parsed.json', 'rb') as f:
         jira.add_attachment(issue=issue, attachment=f)
-        print(f"Uploaded: {attachment_path}")
+        print(f"Uploaded: {attachment}")
 
 
 def list_attachments(issue):
