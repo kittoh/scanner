@@ -44,11 +44,11 @@ def open_jira_ticket(project, server):
     #     f.close()
     attachment_item = open('test_report_parsed.json', 'rb')
     jira.add_attachment(issue=issue, attachment=attachment_item)
-
+    
     print("Issue opened and attachments added. Metadata:")
     print(f"\tIssue ID: {issue.id}")
     print(f"\tIssue Key: {issue.key}")
-    print("Attachments")
+    print(f"Uploaded: {attachment_item}")
 
 def jira_login(server):
 
