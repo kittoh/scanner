@@ -54,30 +54,49 @@ ISSUE_DESCRIPTION = """TEST
     type=str,
     help='The JIRA server.'
 )
+# attachment_item = open('test_report_parsed.json', 'rb'))
 
-
-def open_jira_ticket(project, server, attachment):
+def open_jira_ticket(project, server):
     # def open_jira_ticket(project, auth_file, report_file, triage_file, data_file, server):
-    jira = jira_login(server)
-    issue = jira.create_issue(
-        project=project,
-        summary=ISSUE_SUMMARY,
-        description=ISSUE_DESCRIPTION,
-        issuetype={
+    jira=jira_login(server)
+    issue=jira.create_issue(
+        project = project,
+        summary = ISSUE_SUMMARY,
+        description = ISSUE_DESCRIPTION,
+        issuetype = {
             'name': 'Bug'
         }
     )
-
-    jira.add_attachment(issue=issue, attachment='test_report_parsed.json')
+    # attachment = open('test_report_parsed.json', 'rb')
+    # def add_attachment(jira, issue, attachment):
+    """
+    Adds an attachment.
+    :param jira: JIRA session
+    :param issue: Issue object
+    :param attachment_path: Path to the file you want to attach
+    :return:
+    """
+    # upload file from `/some/path/attachment.txt`
+    jira.add_attachment(issue=issue, attachment=open('report.txt', 'rb'))
 
     # read and upload a file (note binary mode for opening, it's important):
-    with open('test_report_parsed.json', 'rb') as f:
-        jira.add_attachment(issue=issue, attachment=f)
+    # with open('test_report_parsed.json', 'rb') as f:
+    #     jira.add_attachment(issue=issue, attachment=f)
+    #     print(f"Uploaded: {attachment}")
+
+    # report = open('test_report_parsed.json', 'rb')
+
+    # attachment_item = jira.add_attachment(issue, attachment=report)
+    # jira.add_attachment(issue=issue, attachment='test_report_parsed.json')
+
+    # read and upload a file (note binary mode for opening, it's important):
+    # with open('test_report_parsed.json', 'rb') as f:
+    #     jira.add_attachment(issue=issue, attachment=f)
     # from io import StringIO
     # attachment = StringIO()
     # attachment.write(attachment)
     # for attachment in [attachment]:
-    jira.add_attachment(issue=issue, attachment=attachment)
+    # jira.add_attachment(issue=issue, attachment=attachment)
     
     print("Issue opened and attachments added. Metadata:")
     print(f"\tIssue ID: {issue.id}")
@@ -108,22 +127,21 @@ def jira_login(server):
     return auth_jira
 
 
-# def add_attachment(jira, issue, attachment):
-#     """
-#     Adds an attachment.
-#     :param jira: JIRA session
-#     :param issue: Issue object
-#     :param attachment_path: Path to the file you want to attach
-#     :return:
-#     """
-#     # upload file from `/some/path/attachment.txt`
-#     jira.add_attachment(issue=issue, attachment=attachment)
+def add_attachment(jira, issue, attachment):
+    """
+    Adds an attachment.
+    :param jira: JIRA session
+    :param issue: Issue object
+    :param attachment_path: Path to the file you want to attach
+    :return:
+    """
+    # upload file from `/some/path/attachment.txt`
+    jira.add_attachment(issue=issue, attachment='test_report_parsed.json')
 
-#     # read and upload a file (note binary mode for opening, it's important):
-#     with open('test_report_parsed.json', 'rb') as f:
-        # jira.add_attachment(issue=issue, attachment=f)
-        # jira.add_attachment(issue=issue, attachment=f)
-        # print(f"Uploaded: {attachment}")
+    # read and upload a file (note binary mode for opening, it's important):
+    with open('test_report_parsed.json', 'rb') as f:
+        jira.add_attachment(issue=issue, attachment=f)
+        print(f"Uploaded: {attachment}")
 
 def list_attachments(issue):
     for attachment in issue.fields.attachment:
