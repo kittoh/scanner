@@ -23,12 +23,12 @@ ISSUE_DESCRIPTION = """TEST
     required=True,
     help="The 3-4 character JIRA Project key."
 )
-# @click.option(
-#     '--attachment',
-#     help='File path of the attachment.'
-# )
+@click.option(
+    '--attachment_path',
+    help='File path of the attachment.'
+)
 
-def open_jira_ticket(project, server):
+def open_jira_ticket(project, server, attachment_path):
     jira=jira_login(server)
     issue=jira.create_issue(
         project = project,
@@ -42,7 +42,7 @@ def open_jira_ticket(project, server):
     # with open('report.txt', 'rb') as f:
     #     jira.add_attachment(issue=issue, attachment=f)
     #     f.close()
-    attachment_item = open('test_report_parsed.json', 'rb')
+    attachment_item = open(attachment_path, 'rb')
     jira.add_attachment(issue=issue, attachment=attachment_item)
     
     print("Issue opened and attachments added. Metadata:")
