@@ -1,3 +1,8 @@
-# scanner
+# SCANNER
 
-[![CI](https://github.com/kittoh/scanner/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/kittoh/scanner/actions/workflows/main.yml)
+__SCANNER__ (Tentative name 😅)
+
+This is a basic multi-part security scanning pipeline.
+
+COMPONENTS
+
