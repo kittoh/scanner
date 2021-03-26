@@ -5,21 +5,14 @@ on:
 
 jobs:
   test:
-    name: "RUN YEESEEETEST"
+    name: "RUN SCAN"
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: OWASP ZAP Image Pull
-      run: docker pull owasp/zap2docker-stable
-    
     - name: OWASP ZAP Baseline Scan
           # You may pin to the exact commit or the version.
           # uses: zaproxy/action-baseline@acd8e997263688cb49cb5ff8247a4b2758c548ab
-      run: docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py \   -t http://testhtml5.vulnweb.com -g gen.conf -J test_report.json
-
-    - name: Python Parsing
-          
-      run: python3 JSON_parser.py
+      run: docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://testhtml5.vulnweb.com -g gen.conf -J test_report.json
