@@ -1,8 +1,11 @@
 #! /usr/bin/env python
 
 import json
+from sys import argv
 
-with open('test_report.json', ) as j:
+script, file = argv
+
+with open(file) as j:
 	data = json.load(j)
 
 site = data['site']
