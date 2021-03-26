@@ -26,6 +26,6 @@ _The Process_
 
 3. Creating Jira Issues
    - The parsed results will then be attached to a Jira Issue which is 
-     opened by a Python script - 3_jira_issue_creator
+     opened by a Python script - 3_jira_issue_creator.py
 
 
