@@ -3,9 +3,10 @@
 import json
 from sys import argv
 
-script, file = argv
+# run this command: python your_script.py file_input file_output
+script, file_in, file_out = argv
 
-with open(file) as j:
+with open(file_in) as j:
 	data = json.load(j)
 
 site = data['site']
@@ -17,5 +18,5 @@ parsed = [riskdesc for riskdesc in alerts if riskdesc['riskdesc'] == 'Medium (Me
 
 print("Number of Prioritized Issues: " + str(len(parsed)))
 
-with open('test_report_parsed.json', 'w') as jp:
+with open(file_out, 'w') as jp:
 	json.dump(parsed, jp)
